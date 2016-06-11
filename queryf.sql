@@ -1,0 +1,8 @@
+SELECT DISTINCT C1.cid
+FROM Contributor C1 NATURAL JOIN Donated D1
+GROUP BY C1.cid
+HAVING SUM(D1.donation) >= ALL
+	(SELECT SUM(D2.donation)
+	FROM Donated D2
+	GROUP BY D2.cid)
+ORDER BY C1.cid;
